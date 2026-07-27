@@ -76,7 +76,6 @@
       border-color: var(--sky-dark);
     }
 
-    /* ── PAGE HEADER ── */
     .page-header {
       padding: 3rem 2rem 1.5rem;
       text-align: center;
@@ -103,7 +102,6 @@
       font-weight: 700;
     }
 
-    /* ── CONTENT ── */
     .content {
       max-width: 960px;
       margin: 0 auto;
@@ -125,6 +123,7 @@
       font-family: 'Fredoka One', cursive;
       font-size: 1.3rem;
       color: var(--navy);
+      white-space: nowrap;
     }
 
     .section-rule {
@@ -134,7 +133,7 @@
       border-radius: 2px;
     }
 
-    /* ── MANGA GRID — 横長カード ── */
+    /* ── MANGA GRID ── */
     .manga-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -175,9 +174,7 @@
       object-fit: cover;
     }
 
-    .manga-info {
-      padding: 0.9rem 1.1rem;
-    }
+    .manga-info { padding: 0.9rem 1.1rem; }
 
     .manga-title {
       font-family: 'M PLUS Rounded 1c', sans-serif;
@@ -193,7 +190,7 @@
       font-family: 'M PLUS Rounded 1c', sans-serif;
     }
 
-    /* ── ILLUST GRID — 正方形グリッド ── */
+    /* ── ILLUST GRID ── */
     .illust-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -234,9 +231,7 @@
       object-fit: cover;
     }
 
-    .illust-info {
-      padding: 0.6rem 0.9rem;
-    }
+    .illust-info { padding: 0.6rem 0.9rem; }
 
     .illust-title {
       font-family: 'M PLUS Rounded 1c', sans-serif;
@@ -250,6 +245,63 @@
       font-size: 0.68rem;
       color: var(--muted);
       font-family: 'M PLUS Rounded 1c', sans-serif;
+    }
+
+    /* ── DICT CARDS ── */
+    .dict-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .dict-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      background: var(--white);
+      border: 3px solid var(--navy);
+      border-radius: 14px;
+      padding: 1.1rem 1.3rem;
+      box-shadow: 4px 4px 0 var(--navy);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .dict-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--navy);
+    }
+
+    .dict-card:nth-child(1) { background: var(--yellow); }
+    .dict-card:nth-child(2) { background: #FFDCE8; }
+
+    .dict-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .dict-body { flex: 1; }
+
+    .dict-name {
+      display: block;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--navy);
+      margin-bottom: 0.15rem;
+    }
+
+    .dict-desc {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--ink);
+      opacity: 0.7;
+    }
+
+    .dict-arrow {
+      font-size: 1.1rem;
+      color: var(--navy);
+      flex-shrink: 0;
     }
 
     /* ── FOOTER ── */
@@ -277,6 +329,7 @@
       nav { padding: 0.8rem 1rem; }
       .illust-grid { grid-template-columns: repeat(2, 1fr); }
       .manga-grid { grid-template-columns: 1fr; }
+      .dict-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -305,7 +358,6 @@
     </div>
 
     <div class="manga-grid">
-
       <a class="manga-card" href="#">
         <div class="manga-thumb">📖</div>
         <div class="manga-info">
@@ -313,7 +365,6 @@
           <div class="manga-date">2026.07.25</div>
         </div>
       </a>
-
       <a class="manga-card" href="#">
         <div class="manga-thumb">📖</div>
         <div class="manga-info">
@@ -321,7 +372,6 @@
           <div class="manga-date">2026.07.25</div>
         </div>
       </a>
-
     </div>
 
     <!-- イラスト -->
@@ -331,23 +381,20 @@
     </div>
 
     <div class="illust-grid">
-
       <a class="illust-card" href="ぺこらFA.jpg">
-        <div class="illust-thumb"><img src="ぺこらFA.jpg" alt="兎田ぺこらのファンアート" width="400"></div>
+        <div class="illust-thumb"><img src="ぺこらFA.jpg" alt="兎田ぺこらのファンアート"></div>
         <div class="illust-info">
           <div class="illust-title">兎田ぺこら</div>
           <div class="illust-date">2026.07.25</div>
         </div>
       </a>
-
       <a class="illust-card" href="マリン船長FA.jpg">
-        <div class="illust-thumb"><img src="マリン船長FA.jpg" alt="宝鐘マリン" width="400"></div>
+        <div class="illust-thumb"><img src="マリン船長FA.jpg" alt="宝鐘マリン"></div>
         <div class="illust-info">
           <div class="illust-title">宝鐘マリン</div>
           <div class="illust-date">2026.07.25</div>
         </div>
       </a>
-
       <a class="illust-card" href="#">
         <div class="illust-thumb">🎨</div>
         <div class="illust-info">
@@ -355,7 +402,31 @@
           <div class="illust-date">2025.04.20</div>
         </div>
       </a>
+    </div>
 
+    <!-- 辞典 -->
+    <div class="section-head">
+      <span class="section-label">📚 辞典</span>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="dict-grid">
+      <a class="dict-card" href="rule.html">
+        <span class="dict-icon">📋</span>
+        <span class="dict-body">
+          <span class="dict-name">ルール辞典</span>
+          <span class="dict-desc">配信のルールをまとめました</span>
+        </span>
+        <span class="dict-arrow">›</span>
+      </a>
+      <a class="dict-card" href="dictionary.html">
+        <span class="dict-icon">📖</span>
+        <span class="dict-body">
+          <span class="dict-name">用語辞典</span>
+          <span class="dict-desc">よく使われる用語の解説</span>
+        </span>
+        <span class="dict-arrow">›</span>
+      </a>
     </div>
 
   </div>
