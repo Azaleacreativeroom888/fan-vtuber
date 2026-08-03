@@ -3,270 +3,483 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery — Pokémon Fan Log</title>
+  <title>Gallery — VWATCH</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Noto+Sans+JP:wght@400;500;700&family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --red:    #E63946;
-      --yellow: #FFD166;
-      --blue:   #118AB2;
-      --dark:   #1a1a2e;
-      --cream:  #FFF8F0;
+      --sky: #7FECF5;
+      --sky-light: #C2F5FA;
+      --sky-pale: #E8FBFD;
+      --sky-dark: #3DCAD6;
+      --yellow: #FFE84D;
+      --white: #FFFFFF;
+      --navy: #1A2B3C;
+      --ink: #1E3A4A;
+      --muted: #5C8898;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: "Noto Sans JP", sans-serif;
-      background-color: var(--cream);
-      color: var(--dark);
+      background: var(--sky);
+      color: var(--ink);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
       min-height: 100vh;
-      overflow-x: hidden;
     }
 
-    body::before {
-      content: "";
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 0;
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 3px solid var(--navy);
+      padding: 0.9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    /* HEADER */
-    header {
-      position: relative;
-      background: var(--red);
-      overflow: hidden;
-    }
-    header::after {
-      content: "";
-      position: absolute; right: -80px; top: 50%; transform: translateY(-50%);
-      width: 220px; height: 220px; border-radius: 50%;
-      background: conic-gradient(#f0f0f0 0deg 180deg, #222 180deg 360deg);
-      opacity: 0.12; border: 12px solid rgba(255,255,255,0.15);
-    }
-    .header-inner {
-      max-width: 900px; margin: auto;
-      padding: 28px 20px 18px; position: relative; z-index: 2;
-    }
-    header h1 {
-      font-family: "Dela Gothic One", sans-serif;
-      font-size: 38px; letter-spacing: 3px;
-      color: #fff; text-shadow: 3px 3px 0 rgba(0,0,0,0.2); line-height: 1;
-    }
-    header h1 span { color: var(--yellow); }
-
-    nav { display: flex; gap: 6px; margin-top: 16px; flex-wrap: wrap; }
-    nav a {
-      color: rgba(255,255,255,0.75); text-decoration: none;
-      font-size: 12px; font-weight: 700; letter-spacing: 2px;
-      padding: 5px 14px;
-      border: 1.5px solid rgba(255,255,255,0.3); border-radius: 999px;
-      transition: all 0.2s;
-    }
-    nav a:hover { background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.7); }
-    nav a.active { background: rgba(255,255,255,0.2); color: #fff; border-color: rgba(255,255,255,0.8); }
-
-    .redline {
-      height: 5px;
-      background: linear-gradient(90deg, var(--red), var(--yellow), var(--blue));
-    }
-
-    /* CONTAINER */
-    .container {
-      max-width: 900px; margin: auto;
-      padding: 40px 20px 64px;
-      position: relative; z-index: 1;
-    }
-
-    /* SECTION HEADER */
-    .section-header {
-      display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
-    }
-    .section-header h2 {
-      font-family: "Dela Gothic One", sans-serif;
-      font-size: 18px; letter-spacing: 1px; white-space: nowrap;
-    }
-    .section-line {
-      flex: 1; height: 2px;
-      background: linear-gradient(to right, #e0e0e0, transparent);
-      border-radius: 999px;
-    }
-
-    /* GALLERY GRID */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 56px;
-    }
-
-    @media (max-width: 560px) {
-      .gallery { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    /* ITEM */
-    .item {
-      background: #fff;
-      border-radius: 14px;
-      border: 2px solid #eee;
-      box-shadow: 3px 3px 0 #e0e0e0;
-      overflow: hidden;
-      transition: all 0.18s;
-      animation: fadeUp 0.4s ease both;
-    }
-    .item:hover {
-      border-color: var(--red);
-      box-shadow: 5px 5px 0 var(--red);
-      transform: translate(-3px, -3px);
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .item:nth-child(1) { animation-delay: 0.05s; }
-    .item:nth-child(2) { animation-delay: 0.10s; }
-    .item:nth-child(3) { animation-delay: 0.15s; }
-    .item:nth-child(4) { animation-delay: 0.20s; }
-    .item:nth-child(5) { animation-delay: 0.25s; }
-    .item:nth-child(6) { animation-delay: 0.30s; }
-
-    /* IMAGE AREA */
-    .item-img {
-      aspect-ratio: 3 / 4;
-      overflow: hidden;
-      background: #f5f5f5;
-      position: relative;
-    }
-    .item-img img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-      transition: transform 0.4s ease;
-    }
-    .item:hover .item-img img { transform: scale(1.04); }
-
-    /* PLACEHOLDER */
-    .item-placeholder {
-      width: 100%; height: 100%;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 10px; color: #ccc;
-    }
-    .ph-icon  { font-size: 28px; }
-    .ph-label {
-      font-family: "Dela Gothic One", sans-serif;
-      font-size: 10px; letter-spacing: 2px; color: #ddd;
-    }
-
-    /* CAPTION */
-    .caption {
-      padding: 10px 14px 12px;
-      font-size: 12px; color: #888;
-      line-height: 1.6;
-      border-top: 2px solid #f0f0f0;
-    }
-
-    /* DICTIONARY LINK */
-    .dict-link-btn {
-      display: inline-flex; align-items: center; gap: 8px;
+    .nav-logo {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.5rem;
+      color: var(--navy);
       text-decoration: none;
-      background: var(--dark); color: #fff;
-      font-family: "Dela Gothic One", sans-serif;
-      font-size: 13px; letter-spacing: 1px;
-      padding: 10px 22px; border-radius: 999px;
-      transition: all 0.2s;
-      box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
-    }
-    .dict-link-btn:hover {
-      background: var(--red);
-      transform: translate(-2px, -2px);
-      box-shadow: 5px 5px 0 rgba(0,0,0,0.15);
     }
 
-    /* FOOTER */
+    .nav-logo span { color: var(--sky-dark); }
+
+    .nav-links {
+      display: flex;
+      gap: 0.3rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: inline-block;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--navy);
+      text-decoration: none;
+      padding: 0.3rem 0.9rem;
+      border: 2px solid transparent;
+      border-radius: 99px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: var(--sky-light);
+      border-color: var(--sky-dark);
+    }
+
+    .page-header {
+      padding: 3rem 2rem 1.5rem;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      color: var(--white);
+      -webkit-text-stroke: 2.5px var(--navy);
+      line-height: 1.1;
+      margin-bottom: 0.6rem;
+    }
+
+    .page-header p {
+      display: inline-block;
+      background: var(--white);
+      border: 2px solid var(--navy);
+      border-radius: 99px;
+      padding: 0.3rem 1.2rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-weight: 700;
+    }
+
+    .content {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
+      margin-top: 2.5rem;
+    }
+
+    .section-head:first-child { margin-top: 0; }
+
+    .section-label {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.3rem;
+      color: var(--navy);
+      white-space: nowrap;
+    }
+
+    .section-rule {
+      flex: 1;
+      height: 2.5px;
+      background: var(--navy);
+      border-radius: 2px;
+    }
+
+    /* ── MANGA GRID ── */
+    .manga-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .manga-card {
+      background: var(--white);
+      border: 3px solid var(--navy);
+      border-radius: 16px;
+      box-shadow: 4px 4px 0 var(--navy);
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .manga-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--navy);
+    }
+
+    .manga-thumb {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      background: var(--sky-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      border-bottom: 2.5px solid var(--navy);
+      overflow: hidden;
+    }
+
+    .manga-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .manga-info { padding: 0.9rem 1.1rem; }
+
+    .manga-title {
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--navy);
+      margin-bottom: 0.2rem;
+    }
+
+    .manga-date {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+    }
+
+    /* ── ILLUST GRID ── */
+    .illust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .illust-card {
+      background: var(--white);
+      border: 3px solid var(--navy);
+      border-radius: 14px;
+      box-shadow: 4px 4px 0 var(--navy);
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .illust-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--navy);
+    }
+
+    .illust-thumb {
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--sky-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      border-bottom: 2.5px solid var(--navy);
+      overflow: hidden;
+    }
+
+    .illust-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .illust-info { padding: 0.6rem 0.9rem; }
+
+    .illust-title {
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--navy);
+      margin-bottom: 0.15rem;
+    }
+
+    .illust-date {
+      font-size: 0.68rem;
+      color: var(--muted);
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+    }
+
+    .illust-title-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 0.15rem;
+    }
+
+    /* ── タグ ── */
+    .tag {
+      display: inline-block;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-weight: 700;
+      font-size: 0.58rem;
+      padding: 0.05rem 0.5rem;
+      border-radius: 99px;
+      border: 1.5px solid;
+      white-space: nowrap;
+    }
+
+    .tag-holo  { background: #FFDCE8; border-color: #E8A0BF; color: #8B3A5A; }
+    .tag-niji  { background: #EDE9FE; border-color: #A78BFA; color: #5B3FA0; }
+    .tag-vspo  { background: #DBEAFE; border-color: #60A5FA; color: #1D4ED8; }
+    .tag-indie { background: #D1FAE5; border-color: #34D399; color: #065F46; }
+    .tag-other { background: var(--sky-pale); border-color: var(--sky-dark); color: var(--ink); }
+
+    /* ── DICT CARDS ── */
+    .dict-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .dict-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      background: var(--white);
+      border: 3px solid var(--navy);
+      border-radius: 14px;
+      padding: 1.1rem 1.3rem;
+      box-shadow: 4px 4px 0 var(--navy);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .dict-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--navy);
+    }
+
+    .dict-card:nth-child(1) { background: var(--yellow); }
+    .dict-card:nth-child(2) { background: #FFDCE8; }
+    .dict-card:nth-child(3) { background: #D1FAE5; }
+
+    .dict-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .dict-body { flex: 1; }
+
+    .dict-name {
+      display: block;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--navy);
+      margin-bottom: 0.15rem;
+    }
+
+    .dict-desc {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--ink);
+      opacity: 0.7;
+    }
+
+    .dict-arrow {
+      font-size: 1.1rem;
+      color: var(--navy);
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
     footer {
-      text-align: center; padding: 30px 20px;
-      border-top: 2px solid #eee;
-      font-size: 12px; color: #aaa;
-      position: relative; z-index: 1;
+      background: var(--navy);
+      color: var(--sky-light);
+      text-align: center;
+      padding: 2rem 1.5rem;
+    }
+
+    .footer-logo {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.2rem;
+      color: var(--yellow);
+      margin-bottom: 0.4rem;
+    }
+
+    .footer-note {
+      font-size: 0.72rem;
+      color: rgba(194, 245, 250, 0.55);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 0.8rem 1rem; }
+      .illust-grid { grid-template-columns: repeat(2, 1fr); }
+      .manga-grid { grid-template-columns: 1fr; }
+      .dict-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <h1><span>Pokémon</span> Fan Log</h1>
-    <nav>
-      <a href="index.html">HOME</a>
-      <a href="blog.html">BLOG</a>
-      <a href="gallery.html" class="active">GALLERY</a>
-      <a href="about.html">ABOUT</a>
-    </nav>
-  </div>
-</header>
-<div class="redline"></div>
+  <nav>
+    <a class="nav-logo" href="index.html">V<span>WATCH</span></a>
+    <ul class="nav-links">
+      <li><a href="blog.html">LOG</a></li>
+      <li><a href="gallery.html" class="active">GALLERY</a></li>
+      <li><a href="about.html">ABOUT</a></li>
+    </ul>
+  </nav>
 
-<div class="container">
-
-  <!-- ── ILLUSTRATION ── -->
-  <div class="section-header">
-    <h2>Illustration</h2>
-    <div class="section-line"></div>
+  <div class="page-header">
+    <h1>Gallery</h1>
+    <p>漫画・イラスト</p>
   </div>
 
-  <div class="gallery">
+  <div class="content">
 
-    <!-- ▼▼▼ 画像を追加するときはここをコピーして増やす ▼▼▼ -->
+    <!-- 漫画 -->
+    <div class="section-head">
+      <span class="section-label">📖 漫画</span>
+      <div class="section-rule"></div>
+    </div>
 
-    <div class="item">
-      <div class="item-img">
-        <img src="img1.jpg" alt="このシーン好きすぎて描いた">
-        <!--
-          画像ファイルがまだない場合は上の<img>を消して
-          下のコメントを外してください：
-
-        <div class="item-placeholder">
-          <span class="ph-icon">🎨</span>
-          <span class="ph-label">ILLUST · 01</span>
+    <div class="manga-grid">
+      <a class="manga-card" href="#">
+        <div class="manga-thumb">📖</div>
+        <div class="manga-info">
+          <div class="manga-title">ここにタイトル</div>
+          <div class="manga-date">2026.07.25</div>
         </div>
-        -->
-      </div>
-      <div class="caption">このシーン好きすぎて描いた</div>
+      </a>
+      <a class="manga-card" href="#">
+        <div class="manga-thumb">📖</div>
+        <div class="manga-info">
+          <div class="manga-title">ここにタイトル</div>
+          <div class="manga-date">2026.07.25</div>
+        </div>
+      </a>
     </div>
 
-    <div class="item">
-      <div class="item-img">
-        <img src="img2.jpg" alt="表情が良すぎる">
-      </div>
-      <div class="caption">表情が良すぎる</div>
+    <!-- イラスト -->
+    <div class="section-head">
+      <span class="section-label">🎨 イラスト</span>
+      <div class="section-rule"></div>
     </div>
 
-    <div class="item">
-      <div class="item-img">
-        <img src="img3.jpg" alt="なんとなく描いたけど気に入ってる">
-      </div>
-      <div class="caption">なんとなく描いたけど気に入ってる</div>
+    <div class="illust-grid">
+      <a class="illust-card" href="ぺこらFA.jpg">
+        <div class="illust-thumb"><img src="ぺこらFA.jpg" alt="兎田ぺこらのファンアート"></div>
+        <div class="illust-info">
+          <div class="illust-title-row">
+            <span class="illust-title">兎田ぺこら</span>
+            <span class="tag tag-holo">ホロライブ</span>
+          </div>
+          <div class="illust-date">2026.07.25</div>
+        </div>
+      </a>
+      <a class="illust-card" href="マリン船長FA.jpg">
+        <div class="illust-thumb"><img src="マリン船長FA.jpg" alt="宝鐘マリン"></div>
+        <div class="illust-info">
+          <div class="illust-title-row">
+            <span class="illust-title">宝鐘マリン</span>
+            <span class="tag tag-holo">ホロライブ</span>
+          </div>
+          <div class="illust-date">2026.07.25</div>
+        </div>
+      </a>
+      <a class="illust-card" href="#">
+        <div class="illust-thumb">🎨</div>
+        <div class="illust-info">
+          <div class="illust-title-row">
+            <span class="illust-title">タイトルを入れてください</span>
+            <span class="tag tag-other">その他</span>
+          </div>
+          <div class="illust-date">2025.04.20</div>
+        </div>
+      </a>
     </div>
 
-    <!-- ▲▲▲ ここまでコピーして増やす ▲▲▲ -->
+    <!-- 辞典 -->
+    <div class="section-head">
+      <span class="section-label">📚 辞典</span>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="dict-grid">
+      <a class="dict-card" href="rule.html">
+        <span class="dict-icon">📋</span>
+        <span class="dict-body">
+          <span class="dict-name">ルール辞典</span>
+          <span class="dict-desc">配信のルールをまとめました</span>
+        </span>
+        <span class="dict-arrow">›</span>
+      </a>
+      <a class="dict-card" href="dictionary.html">
+        <span class="dict-icon">📖</span>
+        <span class="dict-body">
+          <span class="dict-name">用語辞典</span>
+          <span class="dict-desc">よく使われる用語の解説</span>
+        </span>
+        <span class="dict-arrow">›</span>
+      </a>
+      <a class="dict-card" href="playlist.html">
+        <span class="dict-icon">🎵</span>
+        <span class="dict-body">
+          <span class="dict-name">プレイリスト</span>
+          <span class="dict-desc">私が好きな曲</span>
+        </span>
+        <span class="dict-arrow">›</span>
+      </a>
+    </div>
 
   </div>
 
-  <!-- ── DICTIONARY ── -->
-  <div class="section-header">
-    <h2>Dictionary</h2>
-    <div class="section-line"></div>
-  </div>
-
-  <a class="dict-link-btn" href="dictionary.html">📖 用語辞典を開く</a>
-
-</div>
-
-<footer>
-  <p>⚪ © Pokémon Fan Log — 好きを置いておく場所</p>
-</footer>
+  <footer>
+    <div class="footer-logo">VWATCH</div>
+    <p class="footer-note">当サイトのコンテンツの無断転載・AI学習への使用を禁止します。<br>
+    © 2025 personal fan site — not affiliated with any official channel</p>
+  </footer>
 
 </body>
 </html>
