@@ -247,6 +247,32 @@
       font-family: 'M PLUS Rounded 1c', sans-serif;
     }
 
+    .illust-title-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 0.15rem;
+    }
+
+    /* ── タグ ── */
+    .tag {
+      display: inline-block;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-weight: 700;
+      font-size: 0.58rem;
+      padding: 0.05rem 0.5rem;
+      border-radius: 99px;
+      border: 1.5px solid;
+      white-space: nowrap;
+    }
+
+    .tag-holo  { background: #FFDCE8; border-color: #E8A0BF; color: #8B3A5A; }
+    .tag-niji  { background: #EDE9FE; border-color: #A78BFA; color: #5B3FA0; }
+    .tag-vspo  { background: #DBEAFE; border-color: #60A5FA; color: #1D4ED8; }
+    .tag-indie { background: #D1FAE5; border-color: #34D399; color: #065F46; }
+    .tag-other { background: var(--sky-pale); border-color: var(--sky-dark); color: var(--ink); }
+
     /* ── DICT CARDS ── */
     .dict-grid {
       display: grid;
@@ -274,6 +300,7 @@
 
     .dict-card:nth-child(1) { background: var(--yellow); }
     .dict-card:nth-child(2) { background: #FFDCE8; }
+    .dict-card:nth-child(3) { background: #D1FAE5; }
 
     .dict-icon {
       font-size: 1.6rem;
@@ -384,21 +411,30 @@
       <a class="illust-card" href="ぺこらFA.jpg">
         <div class="illust-thumb"><img src="ぺこらFA.jpg" alt="兎田ぺこらのファンアート"></div>
         <div class="illust-info">
-          <div class="illust-title">兎田ぺこら</div>
+          <div class="illust-title-row">
+            <span class="illust-title">兎田ぺこら</span>
+            <span class="tag tag-holo">ホロライブ</span>
+          </div>
           <div class="illust-date">2026.07.25</div>
         </div>
       </a>
       <a class="illust-card" href="マリン船長FA.jpg">
         <div class="illust-thumb"><img src="マリン船長FA.jpg" alt="宝鐘マリン"></div>
         <div class="illust-info">
-          <div class="illust-title">宝鐘マリン</div>
+          <div class="illust-title-row">
+            <span class="illust-title">宝鐘マリン</span>
+            <span class="tag tag-holo">ホロライブ</span>
+          </div>
           <div class="illust-date">2026.07.25</div>
         </div>
       </a>
       <a class="illust-card" href="#">
         <div class="illust-thumb">🎨</div>
         <div class="illust-info">
-          <div class="illust-title">タイトルを入れてください</div>
+          <div class="illust-title-row">
+            <span class="illust-title">タイトルを入れてください</span>
+            <span class="tag tag-other">その他</span>
+          </div>
           <div class="illust-date">2025.04.20</div>
         </div>
       </a>
@@ -424,6 +460,14 @@
         <span class="dict-body">
           <span class="dict-name">用語辞典</span>
           <span class="dict-desc">よく使われる用語の解説</span>
+        </span>
+        <span class="dict-arrow">›</span>
+      </a>
+      <a class="dict-card" href="playlist.html">
+        <span class="dict-icon">🎵</span>
+        <span class="dict-body">
+          <span class="dict-name">プレイリスト</span>
+          <span class="dict-desc">私が好きな曲</span>
         </span>
         <span class="dict-arrow">›</span>
       </a>
